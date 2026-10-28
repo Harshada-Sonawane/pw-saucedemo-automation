@@ -1,4 +1,4 @@
-# Playwright Login and POM Example
+# Playwright Demo Project
 
 A beginner-friendly Playwright project using [Sauce Demo](https://www.saucedemo.com/). It demonstrates login reuse, Page Object Model (POM), custom fixtures, and login, product and checkout tests.
 
