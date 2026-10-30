@@ -1,4 +1,5 @@
 import { test, expect } from '../fixtures/pageFixtures';
+import { users } from '../test-data/testData';
 
 // Every test in this file starts without the saved login.
 test.use({ storageState: { cookies: [], origins: [] } });
@@ -18,7 +19,7 @@ test.describe('Sauce Demo login', () => {
     inventoryPage,
   }) => {
     await loginPage.open();
-    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.login(users.standard.username, users.standard.password);
 
     await expect(page).toHaveURL(/inventory\.html/);
     await expect(inventoryPage.productsHeading).toBeVisible();
@@ -29,7 +30,7 @@ test.describe('Sauce Demo login', () => {
     loginPage,
   }) => {
     await loginPage.open();
-    await loginPage.login('standard_user', 'wrong_password');
+    await loginPage.login(users.invalidPassword.username, users.invalidPassword.password);
 
     await expect(loginPage.errorMessage).toContainText(
       'Username and password do not match'
@@ -39,7 +40,7 @@ test.describe('Sauce Demo login', () => {
 
   test('locked-out user cannot log in', async ({ page, loginPage }) => {
     await loginPage.open();
-    await loginPage.login('locked_out_user', 'secret_sauce');
+    await loginPage.login(users.locked.username, users.locked.password);
 
     await expect(loginPage.errorMessage).toContainText(
       'this user has been locked out'
@@ -49,7 +50,7 @@ test.describe('Sauce Demo login', () => {
 
   test('username is required', async ({ loginPage }) => {
     await loginPage.open();
-    await loginPage.enterPassword('secret_sauce');
+    await loginPage.enterPassword(users.standard.password);
     await loginPage.clickLogin();
 
     await expect(loginPage.errorMessage).toContainText(
@@ -59,7 +60,7 @@ test.describe('Sauce Demo login', () => {
 
   test('password is required', async ({ loginPage }) => {
     await loginPage.open();
-    await loginPage.enterUsername('standard_user');
+    await loginPage.enterUsername(users.standard.username);
     await loginPage.clickLogin();
 
     await expect(loginPage.errorMessage).toContainText(

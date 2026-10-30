@@ -1,4 +1,5 @@
 import { test, expect } from '../fixtures/pageFixtures';
+import { products } from '../test-data/testData';
 
 test.describe('Products page', () => {
   test('logged-in user can see products', async ({ inventoryPage }) => {
@@ -10,7 +11,7 @@ test.describe('Products page', () => {
   test('user can add and remove a product from the cart', async ({
     inventoryPage,
   }) => {
-    const productName = 'Sauce Labs Backpack';
+    const productName = products.backpack;
 
     await inventoryPage.open();
 

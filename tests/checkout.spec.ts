@@ -1,4 +1,5 @@
 import { test, expect } from '../fixtures/pageFixtures';
+import { products, checkoutDetails } from '../test-data/testData';
 
 test('user can purchase a product', async ({
   page,
@@ -6,7 +7,7 @@ test('user can purchase a product', async ({
   cartPage,
   checkoutPage,
 }) => {
-  const productName = 'Sauce Labs Backpack';
+  const productName = products.backpack;
 
   // 1. Open products and add the backpack.
   await inventoryPage.open();
@@ -29,9 +30,9 @@ test('user can purchase a product', async ({
   await expect(page).toHaveURL(/checkout-step-one\.html/);
 
   await checkoutPage.enterCustomerDetails(
-    'Harshada',
-    'Sonawane',
-    '411001'
+    checkoutDetails.firstName,
+    checkoutDetails.lastName,
+    checkoutDetails.postalCode
   );
 
   await checkoutPage.continue();

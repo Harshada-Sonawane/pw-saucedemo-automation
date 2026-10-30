@@ -1,5 +1,6 @@
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
+import { users } from './test-data/testData';
 
 console.log('Global setup is running');
 export default async function globalSetup() {
@@ -16,8 +17,8 @@ export default async function globalSetup() {
 
     await page.goto('https://www.saucedemo.com/');
 
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
+    await page.getByPlaceholder('Username').fill(users.standard.username);
+    await page.getByPlaceholder('Password').fill(users.standard.password);
     await page.getByRole('button', { name: 'Login' }).click();
 
     // Wait for login to finish before saving the state.
